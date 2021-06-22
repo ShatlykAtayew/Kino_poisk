@@ -7,11 +7,11 @@ class App extends React.Component {
     state = {
         movies: [
             {
-                "name": "The Matrix 3",
-                "rating": "8.1",
-                "overview": "Set in the 22nd century, The Matrix tells the story of a computer hacker who joins a group of underground insurgents fighting the vast and powerful computers who now rule the earth.",
-                "imageURL": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/dXNAPwY7VrqMAo51EKhhCJfaGb5.jpg",
-                "id": 7
+                "name": "Hostage",
+                "rating": "6.3",
+                "imageURL": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/4hne3v6jN4MlCnhSkxOW7YspJhr.jpg",
+                "overview": "When a mafia accountant is taken hostage on his beat, a police officer – wracked by guilt from a prior stint as a negotiator – must negotiate the standoff, even as his own family is held captive by the mob.",
+                "id": 13
             },
             {
                 "name": "The Matrix Reloaded",
@@ -34,25 +34,49 @@ class App extends React.Component {
                 "imageURL": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/qCPMjT8Ld8tvs1zs7LY2jpKlRIK.jpg",
                 "id": 12
             },
+            
             {
-                "name": "Hostage",
-                "rating": "6.3",
-                "imageURL": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/4hne3v6jN4MlCnhSkxOW7YspJhr.jpg",
-                "overview": "When a mafia accountant is taken hostage on his beat, a police officer – wracked by guilt from a prior stint as a negotiator – must negotiate the standoff, even as his own family is held captive by the mob.",
-                "id": 13
+                "name": "The Matrix 3",
+                "rating": "8.1",
+                "overview": "Set in the 22nd century, The Matrix tells the story of a computer hacker who joins a group of underground insurgents fighting the vast and powerful computers who now rule the earth.",
+                "imageURL": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/dXNAPwY7VrqMAo51EKhhCJfaGb5.jpg",
+                "id": 7
             }
-        ]
-    }
+        ],
 
+        searchQuery: ""
+    }
+deleteMovie = (movie) => {
+    const newMovieList = this.state.movies.filter(
+        m => m.id !==movie.id
+    );
+
+    this.setState (state =>({
+        movies: newMovieList
+    }))
+}
+
+searchMovie = (event) => {this.setState({searchQuery: event.target.value})}
     render() {
+
+        let filteredMovies = this.state.movies.filter(
+            (movie) => {
+                return movie.name.toLowerCase().indexOf(this.state.searchQuery.toLowerCase()) !== -1
+            }
+        )
         return (
             <div className="container">
                 <div className="row">
                     <div className="col-lg-12">
-                        <Searchbar />
+                        <Searchbar 
+                            searchMovie={this.searchMovie}
+                        />
                     </div>
                 </div>
-                <MovieList/>
+                <MovieList 
+                    movies={filteredMovies}
+                    deleteMovie={this.deleteMovie}
+                />
             </div>)
     }
 }
