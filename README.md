@@ -1,3 +1,6 @@
+Kino_poisk_fake_database
+Movie search from fake database This React JS project was created to demonstrate simple use of props and state. There is search bar which gets user input and finds related movies. Also here demonstrated delete function button. I'm continuing to develop this project...
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
